@@ -1,0 +1,62 @@
+#########################################################
+# This task file contains command to create new ssl cert
+# for development and testing use.
+#
+# USAGE:
+#--------------------------------------------------------
+# - name: "Generate SSL certs"
+#   block:
+#     - include_tasks: openssl-11.yml
+#     - set_fact:
+#         self_signed_cert:
+#           description: self-signed SSL cert and private key
+#           enabled: true
+#           organisation: CSC
+#           location: Espoo
+#           state: Uusimaa
+#           country: FI
+#           common_name: "{{ server_domain_name }}"
+#           dns: "{{ server_domain_name }}"
+#           keyout: "{{ ssl_certificates_path }}/{{ ssl_key_name }}"
+#           out: "{{ ssl_certificates_path }}/{{ ssl_certificate_name }}"
+#           days: 365
+#     - set_fact:
+#         certs:
+#           - "{{ self_signed_cert }}"
+#     - name: Generate self-signed certs
+#       include_tasks: create-cert.yml
+#       with_items: "{{ certs }}"
+#       loop_control:
+#         loop_var: cert
+#     - set_fact:
+#         self_signed_cert:
+#         certs:
+#--------------------------------------------------------
+# Author(s):
+#      Juhapekka Piiroinen <juhapekka.piiroinen@csc.fi>
+#
+# License: MIT
+#
+# (C) 2020 Copyright CSC - IT Center for Science Ltd.
+# All Rights Reserved.
+#########################################################
+---
+- fail:
+    msg: "cert is not defined"
+  when: cert is undefined
+- fail:
+    msg: "openssl is not defined, you need to include openssl-11.yml."
+  when: openssl is undefined
+
+- debug:
+    var: cert
+
+- name: "{{ cert.description }}"
+  command:
+    cmd: openssl req -x509 -nodes -subj "/C={{ cert.country }}/ST={{ cert.state }}/L={{ cert.location }}/O={{ cert.organisation }}/CN={{ cert.common_name }}" -addext "subjectAltName = DNS:{{ cert.dns }}" -addext "extendedKeyUsage = serverAuth" -days {{ cert.days }} -newkey rsa:2048 -keyout {{ cert.keyout }} -out {{ cert.out }}
+    creates: "{{ cert.out }}"
+  environment:
+    LD_LIBRARY_PATH: "{{ openssl.lib_path }}"
+    OPENSSL_CONF: "{{ openssl.build_path }}/openssl.cnf"
+    PATH: "{{ openssl.bin_path }}:{{ ansible_env.PATH }}"
+  when: cert.enabled

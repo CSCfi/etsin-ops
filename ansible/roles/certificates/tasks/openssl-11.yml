@@ -1,0 +1,99 @@
+#########################################################
+# This task file contains command to install openssl 1.1
+#
+# USAGE:
+#--------------------------------------------------------
+# - include_tasks: openssl-11.yml
+#--------------------------------------------------------
+# Author(s):
+#      Juhapekka Piiroinen <juhapekka.piiroinen@csc.fi>
+#
+# License: MIT
+#
+# (C) 2020 Copyright CSC - IT Center for Science Ltd.
+# All Rights Reserved.
+#########################################################
+---
+- fail:
+    msg: "openssl variable is already set, this would override it."
+  when: openssl is defined
+
+- set_fact:
+    openssl:
+      root_path: /opt/openssl-1.1
+      source_path: "/opt/openssl-1.1/openssl-OpenSSL_1_1_1d"
+      build_path: "/opt/openssl-1.1/build"
+      bin_path: "/opt/openssl-1.1/build/bin"
+      lib_path: "/opt/openssl-1.1/build/lib"
+
+- name: "Check if openssl is already installed"
+  block:
+    - name: "Does the built binary exist"
+      stat:
+        path: "{{ openssl.bin_path }}/openssl"
+      register: openssl_binary
+
+    - name: "Check openssl version"
+      shell: openssl version
+      ignore_errors: yes
+      register: openssl_version
+
+    - set_fact:
+        openssl_version: "{{ openssl_version.stdout | regex_search('([0-9].[0-9].[0-9][a-z])') }}"
+
+- name: "Setup openssl 1.1"
+  block:
+    - name: "Get source"
+      block:
+        - name: "Create paths for openssl"
+          block:
+            - file:
+                path: "{{ item }}"
+                state: directory
+                mode: '0755'
+              with_items:
+                - "{{ openssl.root_path }}"
+                - "{{ openssl.source_path }}"
+                - "{{ openssl.bin_path }}"
+                - "{{ openssl.lib_path }}"
+
+        - name: "Download openssl source"
+          get_url:
+            url: https://github.com/openssl/openssl/archive/OpenSSL_1_1_1d.tar.gz
+            dest: "{{ openssl.root_path }}/OpenSSL_1_1_1d.tar.gz"
+            checksum: sha1:df0ee4811c87c209ebadb4e6b203d1e560d00f9a
+
+        - name: "Extract source"
+          unarchive:
+            src: "{{ openssl.root_path }}/OpenSSL_1_1_1d.tar.gz"
+            dest: "{{ openssl.root_path }}"
+            remote_src: yes
+
+    - name: "Build openssl 1.1"
+      block:
+        - name: "Run configure"
+          shell:
+            cmd: ./config shared --openssldir={{ openssl.build_path }} --prefix={{ openssl.build_path }}
+            chdir: "{{ openssl.source_path }}"
+
+        - name: "Build"
+          shell:
+            cmd: make
+            chdir: "{{ openssl.source_path }}"
+
+        - name: "Install to build path"
+          shell:
+            cmd: make install
+            chdir: "{{ openssl.source_path }}"
+
+    - name: "Remove source and temporary files"
+      block:
+        - file:
+            path: "{{ item }}"
+            state: absent
+          with_items:
+            - "{{ openssl.source_path }}"
+            - "{{ openssl.root_path }}/OpenSSL_1_1_1d.tar.gz"
+  when:
+    - not openssl_binary.stat.exists
+    - openssl_version is version('1.1', '<')

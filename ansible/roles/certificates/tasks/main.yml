@@ -1,17 +1,55 @@
+---
 - name: Create directory for SSL certificates
   file: path={{ ssl_certificates_path }} state=directory
   when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo']
 
-- name: Create self-signed SSL cert and private key
-  command: openssl req -x509 -nodes -subj "/C=FI/ST=Uusimaa/L=Espoo/O=CSC/CN={{ server_domain_name }}" -addext "subjectAltName = DNS:{{ server_domain_name }}" -addext "extendedKeyUsage = serverAuth" -days 365 -newkey rsa:2048 -keyout {{ ssl_certificates_path }}/{{ ssl_key_name }} -out {{ ssl_certificates_path }}/{{ ssl_certificate_name }} creates={{ ssl_certificates_path }}/{{ ssl_certificate_name }}
-  when: deployment_environment_id in ['local_development', 'staging']
-
-- name: Create self-signed redirect SSL cert and private key
-  command: openssl req -x509 -nodes -subj "/C=FI/ST=Uusimaa/L=Espoo/O=CSC/CN={{ redirect_server_domain_name }}" -addext "subjectAltName = DNS:{{ redirect_server_domain_name }}" -addext "extendedKeyUsage = serverAuth" -days 365 -newkey rsa:2048 -keyout {{ ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }} -out {{ ssl_certificates_path }}/{{ redirect_ssl_certificate_name }} creates={{ ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}
+- name: Create self-signed SSL certs for non-production
+  block:
+    - name: Fetch, build and install openssl 1.1
+      block:
+        - include_tasks: openssl-11.yml
+        - set_fact:
+            self_signed_cert:
+              description: self-signed SSL cert and private key
+              enabled: deployment_environment_id in ['local_development', 'staging']
+              organisation: CSC
+              location: Espoo
+              state: Uusimaa
+              country: FI
+              common_name: "{{ server_domain_name }}"
+              dns: "{{ server_domain_name }}"
+              keyout: "{{ ssl_certificates_path }}/{{ ssl_key_name }}"
+              out: "{{ ssl_certificates_path }}/{{ ssl_certificate_name }}"
+              days: 365
+            self_signed_redirect_cert:
+              description: self-signed redirect SSL cert and private key
+              enabled: true
+              organisation: CSC
+              location: Espoo
+              state: Uusimaa
+              country: FI
+              common_name: "{{ redirect_server_domain_name }}"
+              dns: "{{ redirect_server_domain_name }}"
+              keyout: "{{ ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }}"
+              out: "{{ ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}"
+              days: 365
+        - set_fact:
+            certs:
+              - "{{ self_signed_cert }}"
+              - "{{ self_signed_redirect_cert }}"
+    - name: Generate self-signed certs
+      include_tasks: create-cert.yml
+      with_items: "{{ certs }}"
+      loop_control:
+        loop_var: cert
+    - set_fact:
+        openssl:
+        self_signed_cert:
+        self_signed_redirect_cert:
+        certs:
   when: deployment_environment_id not in ['production']
 
 - block:
-
     - name: Install dos2unix
       yum: name=dos2unix state=latest
 

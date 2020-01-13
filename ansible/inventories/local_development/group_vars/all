@@ -48,3 +48,54 @@ elasticsearch:
     - 127.0.0.1
   port: 9200
   use_ssl: False
+
+metax_rabbitmq_hosts:
+  - 127.0.0.1
+
+metax_rabbitmq:
+  hosts: "{{ metax_rabbitmq_hosts }}"
+  vhost: metax
+  exchange: datasets
+  user: metax-user
+  password: changeme
+  port: 5672
+
+metax_api:
+  host: metax.csc.local
+  user: qvain
+  password: test-qvain
+  verify_ssl: False
+
+metax_qvain_api:
+  host: metax.csc.local
+  user: qvain
+  password: test-qvain
+  verify_ssl: False
+
+download_api:
+  host: download.csc.local
+  port: 4433
+  user: etsin
+  password: changeme
+
+memcached:
+  host: localhost
+  port: 11211
+
+saml:
+  debug: true
+  strict: true
+  sp_entity_id: https://etsin.csc.local/saml_metadata/
+  sp_acs_url: https://etsin.csc.local/acs/
+  sp_sls_url: https://etsin.csc.local/sls/
+  sp_x509_cert: changeme
+  sp_private_key: changeme
+  idp_entity_id: https://auth.csc.local/idp/shibboleth
+  idp_sso_url: https://auth.csc.local/idp/profile/SAML2/Redirect/SSO
+  idp_x509_cert: changeme
+  idp_sls_url: http://auth.csc.local/idp/profile/Logout
+
+fd_rems:
+  enabled: false
+  host: localhost
+  api_key: changeme

@@ -25,13 +25,13 @@ MAIL_DEFAULT_SENDER: {{ app_mail_default_sender }}
 
 # Variables related to elasticsearch
 ELASTICSEARCH:
-  HOSTS: {{ elasticsearch.hosts | to_nice_json }}
+  HOSTS: {{ elasticsearch.hosts | default([]) | to_nice_json }}
   PORT: {{ elasticsearch.port }}
   USE_SSL: {{ elasticsearch.use_ssl }}
 
 # Variables related to Metax rabbitmq
 METAX_RABBITMQ:
-  HOSTS: {{ metax_rabbitmq.hosts | to_nice_json }}
+  HOSTS: {{ metax_rabbitmq.hosts | default([]) | to_nice_json }}
   PORT: {{ metax_rabbitmq.port }}
   VHOST: {{ metax_rabbitmq.vhost }}
   EXCHANGE: {{ metax_rabbitmq.exchange }}
@@ -67,5 +67,5 @@ MEMCACHED:
 # Variables related to Fairdata Rems API
 FD_REMS:
   ENABLED: {{ fd_rems.enabled | default(false) }}
-  HOST: {{ fd_rems.host | default(omit) }}
-  API_KEY: {{ fd_rems.api_key | default(omit) }}
+  HOST: {{ fd_rems.host | default('127.0.0.1') }}
+  API_KEY: {{ fd_rems.api_key | default('changeme') }}
