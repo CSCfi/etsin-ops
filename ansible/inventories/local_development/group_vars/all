@@ -20,6 +20,7 @@ nginx_es_credentials:
 gunicorn_preload: false
 
 ssl_certificates_path: /etc/nginx/ssl_certs
+redirect_ssl_certificates_path: /etc/nginx/redirect_ssl_certs
 
 app_log_level: DEBUG
 app_debug_mode: True

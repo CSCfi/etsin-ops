@@ -3,6 +3,10 @@
   file: path={{ ssl_certificates_path }} state=directory
   when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo']
 
+- name: Create separate directory for redirect SSL certificates
+  file: path={{ redirect_ssl_certificates_path }} state=directory
+  when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo']
+
 - name: Create self-signed SSL certs for non-production
   block:
     - name: Fetch, build and install openssl 1.1
@@ -30,8 +34,8 @@
               country: FI
               common_name: "{{ redirect_server_domain_name }}"
               dns: "{{ redirect_server_domain_name }}"
-              keyout: "{{ ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }}"
-              out: "{{ ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}"
+              keyout: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }}"
+              out: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}"
               days: 365
         - set_fact:
             certs:
