@@ -39,3 +39,7 @@ __pycache__
 .vscode
 
 faircentos
+.gitsecret/keys/random_seed
+!*.secret
+*_sec.zip
+etsin_secrets.zip
