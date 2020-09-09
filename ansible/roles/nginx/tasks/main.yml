@@ -8,7 +8,7 @@
 
 - name: NGINX | Add Google search console ownership verification file
   template: src=files/google18c2b346e42a601e.html dest={{ web_app_frontend_path }}/build/google18c2b346e42a601e.html
-  when: deployment_environment_id not in ['local_development']
+  when: deployment_environment_id not in ['local_development', 'test', 'stable', 'demo']
 
 - name: NGINX | Copy shared_headers.conf
   template: src=templates/shared_headers.conf dest=/etc/nginx/shared_headers.conf
