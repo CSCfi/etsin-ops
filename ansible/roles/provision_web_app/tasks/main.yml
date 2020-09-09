@@ -60,25 +60,19 @@
 
   - name: Link npm to usr/bin for local_development
     block:
-        - name: link npm to /usr/bin/
+        - name: link node, npm, npmx to /usr/bin/
           file:
-            src: /opt/rh/rh-nodejs12/root/bin/npm
-            dest: /usr/bin/npm
+            src: /opt/rh/rh-nodejs12/root/bin/{{ item }}
+            dest: /usr/bin/{{ item }}
             state: link
-        - name: link node to /usr/bin/
-          file:
-            src: /opt/rh/rh-nodejs12/root/bin/node
-            dest: /usr/bin/node
-            state: link
-        - name: link nodejs to /usr/bin/
+          with_items:
+          - node
+          - npm
+          - npx
+        - name: link node to /usr/bin/nodejs
           file:
             src: /opt/rh/rh-nodejs12/root/bin/node
             dest: /usr/bin/nodejs
-            state: link
-        - name: link npx to /usr/bin/
-          file:
-            src: /opt/rh/rh-nodejs12/root/bin/npx
-            dest: /usr/bin/npx
             state: link
     when: deployment_environment_id in ['local_development']
 
