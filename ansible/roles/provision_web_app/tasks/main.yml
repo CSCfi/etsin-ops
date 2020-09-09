@@ -60,7 +60,7 @@
 
   - name: Link npm to usr/bin for local_development
     block:
-        - name: link node, npm, npmx to /usr/bin/
+        - name: link node, npm, npx to /usr/bin/
           file:
             src: /opt/rh/rh-nodejs12/root/bin/{{ item }}
             dest: /usr/bin/{{ item }}
