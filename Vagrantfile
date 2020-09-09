@@ -9,16 +9,15 @@
 $script = <<SCRIPT
 set -e
 if [ ! -f /vagrant_bootstrap_done.info ]; then
-  # sudo yum -y update
-  # sudo yum -y install epel-release libffi-devel openssl-devel git python3-3.6.8 python3-devel-3.6.8
-  # pip3 install ansible
-  # su --login -c 'cd /etsin/ansible && source install_requirements.sh && ansible-playbook site_provision.yml' vagrant
-  #  sudo yum --setopt=tsflags=nodocs -y install epel-release kernel-devel gcc
-  #  sudo yum --setopt=tsflags=nodocs -y install python-pip
-  #  sudo pip install "ansible>=2.4,<2.9"
-   cd /etsin/ansible
-   source install_requirements.sh
-   ansible-playbook site_provision.yml
+  sudo yum -y update
+  sudo yum -y install epel-release 
+  sudo yum -y install libffi-devel
+  sudo yum -y install openssl-devel
+  sudo yum -y install git 
+  sudo yum -y install python3-3.6.8 
+  sudo yum -y install python3-devel-3.6.8
+  pip3 install ansible
+  su --login -c 'cd /etsin/ansible && source install_requirements.sh && ansible-playbook site_provision.yml' vagrant
   sudo touch /vagrant_bootstrap_done.info
 fi
 SCRIPT
