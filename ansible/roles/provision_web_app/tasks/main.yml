@@ -26,37 +26,49 @@
 
   - include_role: name=gunicorn
 
-  - block:
-      - name: Install NPM (legacy)
-        yum: name=npm state=latest
-        when: deployment_environment_id not in ['local_development', 'test', 'stable', 'staging', 'demo', 'production']
-      - name: Install NPM
-        block:
-          - name: Enable software collections
-            shell: yum --setopt=tsflags=nodocs -y install centos-release-scl-rh
-          - name: Install nodejs 12.x
-            shell: yum --enablerepo=centos-sclo-rh-testing -y install rh-nodejs12
-          - name: link npm to /usr/local/bin/
-            file:
-              src: /opt/rh/rh-nodejs12/root/bin/npm
-              dest: /usr/local/bin/npm
-              state: link
-          - name: link node to /usr/local/bin/
-            file:
-              src: /opt/rh/rh-nodejs12/root/bin/node
-              dest: /usr/local/bin/node
-              state: link
-          - name: link nodejs to /usr/local/bin/
-            file:
-              src: /opt/rh/rh-nodejs12/root/bin/node
-              dest: /usr/local/bin/nodejs
-              state: link
-          - name: link npx to /usr/local/bin/
-            file:
-              src: /opt/rh/rh-nodejs12/root/bin/npx
-              dest: /usr/local/bin/npx
-              state: link
-        when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo', 'production']
+  - name: Install NPM
+    block:
+      - name: Enable software collections
+        shell: yum --setopt=tsflags=nodocs -y install centos-release-scl-rh
+      - name: Install nodejs 12.x
+        shell: yum --enablerepo=centos-sclo-rh-testing -y install rh-nodejs12
+    when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo', 'production']
+
+  - name: Link npm to usr/local/bin
+    block:
+        - name: link node, npm, npx to /usr/local/bin/
+          file:
+            src: /opt/rh/rh-nodejs12/root/bin/{{ item }}
+            dest: /usr/local/bin/{{ item }}
+            state: link
+          with_items:
+          - node
+          - npm
+          - npx
+        - name: link node to /usr/local/bin/nodejs
+          file:
+            src: /opt/rh/rh-nodejs12/root/bin/node
+            dest: /usr/local/bin/nodejs
+            state: link
+    when: deployment_environment_id in ['test', 'stable', 'staging', 'demo', 'production']
+
+  - name: Link npm to usr/bin for local_development
+    block:
+        - name: link node, npm, npx to /usr/bin/
+          file:
+            src: /opt/rh/rh-nodejs12/root/bin/{{ item }}
+            dest: /usr/bin/{{ item }}
+            state: link
+          with_items:
+          - node
+          - npm
+          - npx
+        - name: link node to /usr/bin/nodejs
+          file:
+            src: /opt/rh/rh-nodejs12/root/bin/node
+            dest: /usr/bin/nodejs
+            state: link
+    when: deployment_environment_id in ['local_development']
 
   - include_role: name=frontend
 
