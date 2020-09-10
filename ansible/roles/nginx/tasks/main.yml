@@ -10,6 +10,9 @@
   template: src=files/google18c2b346e42a601e.html dest={{ web_app_frontend_path }}/build/google18c2b346e42a601e.html
   when: deployment_environment_id not in ['local_development', 'test', 'stable', 'demo']
 
+- name: NGINX | Copy server_common.conf
+  template: src=templates/server_common.conf dest=/etc/nginx/server_common.conf
+
 - name: NGINX | Copy shared_headers.conf
   template: src=templates/shared_headers.conf dest=/etc/nginx/shared_headers.conf
 

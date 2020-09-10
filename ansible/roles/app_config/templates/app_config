@@ -9,7 +9,7 @@ SEARCH_APP_LOG_PATH: {{ search_app_log_base_path }}/{{ search_app_project_name }
 # Variables related to etsin_finder app config
 DEBUG: {{ app_debug_mode }}
 SECRET_KEY: {{ app_secret_key }}
-SESSION_COOKIE_SAMESITE: Lax
+SESSION_COOKIE_SAMESITE: None
 SESSION_COOKIE_SECURE: True
 SESSION_COOKIE_HTTPONLY: True
 PERMANENT_SESSION_LIFETIME: 1800
