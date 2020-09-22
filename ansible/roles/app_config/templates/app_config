@@ -69,3 +69,6 @@ FD_REMS:
   ENABLED: {{ fd_rems.enabled | default(false) }}
   HOST: {{ fd_rems.host | default('127.0.0.1') }}
   API_KEY: {{ fd_rems.api_key | default('changeme') }}
+
+# Variables related to Fairdata SSO
+SSO_PREFIX: {{ sso_prefix }}
