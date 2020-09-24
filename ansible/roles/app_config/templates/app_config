@@ -72,3 +72,6 @@ FD_REMS:
 
 # Variables related to Fairdata SSO
 SSO_PREFIX: {{ sso_prefix }}
+
+# Variables related to direct login
+SERVER_DOMAIN_NAME: {{ server_domain_name }}
