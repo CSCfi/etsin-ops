@@ -41,20 +41,12 @@
           chdir: "{{ web_app_frontend_path }}"
 
       - name: Run frontend build for pouta test environments
-        shell: npm run build -- --define process.env.NODE_ENV="'test'"
-        become_user: "{{ app_user }}"
-        args:
-          executable: /bin/bash
-          chdir: "{{ web_app_frontend_path }}"
-        when: deployment_environment_id in ['test', 'stable', 'demo']
-
-      - name: Run frontend build for production-like pouta environments
         shell: npm run build
         become_user: "{{ app_user }}"
         args:
           executable: /bin/bash
           chdir: "{{ web_app_frontend_path }}"
-        when: deployment_environment_id == 'staging'
+        when: deployment_environment_id in ['test', 'stable', 'demo', 'staging']
 
       - name: Run frontend build for production environment
         shell: npm run build -- --define process.env.MATOMO="'true'"
