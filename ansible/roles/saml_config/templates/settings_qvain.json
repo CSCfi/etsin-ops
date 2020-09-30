@@ -33,10 +33,10 @@
         },
         "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
         "x509cert": "{{ saml.sp_x509_cert }}",
-        "privateKey": "{{ saml.sp_private_key_qvain }}"
+        "privateKey": "{{ saml.sp_private_key }}"
     },
     "idp": {
-        "entityId": "{{ saml.idp_entity_id_qvain }}",
+        "entityId": "{{ saml.idp_entity_id }}",
         "singleSignOnService": {
             "url": "{{ saml.idp_sso_url_qvain }}",
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
