@@ -5,5 +5,8 @@
 - name: Copy SAML settings.json to target VM
   template: src=templates/settings.json dest=/home/{{ app_user }}/settings.json owner={{ app_user }} group=etsin mode=0440
 
+- name: Copy SAML settings_qvain.json to target VM
+  template: src=templates/settings_qvain.json dest=/home/{{ app_user }}/settings_qvain.json owner={{ app_user }} group=etsin mode=0440
+
 - name: Copy SAML advanced_settings.json to target VM
   template: src=templates/advanced_settings.json dest=/home/{{ app_user }}/advanced_settings.json owner={{ app_user }} group=etsin mode=0440
