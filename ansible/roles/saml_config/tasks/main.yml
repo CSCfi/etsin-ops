@@ -2,8 +2,8 @@
   shell: yum --setopt=tsflags=nodocs -y install libxml2-devel xmlsec1-devel xmlsec1-openssl-devel libtool-ltdl-devel
   become: yes
 
-- name: Copy SAML settings.json to target VM
-  template: src=templates/settings.json dest=/home/{{ app_user }}/settings.json owner={{ app_user }} group=etsin mode=0440
+- name: Copy SAML settings_etsin.json to target VM
+  template: src=templates/settings_etsin.json dest=/home/{{ app_user }}/settings_etsin.json owner={{ app_user }} group=etsin mode=0440
 
 - name: Copy SAML settings_qvain.json to target VM
   template: src=templates/settings_qvain.json dest=/home/{{ app_user }}/settings_qvain.json owner={{ app_user }} group=etsin mode=0440
