@@ -2,11 +2,23 @@
   shell: yum --setopt=tsflags=nodocs -y install libxml2-devel xmlsec1-devel xmlsec1-openssl-devel libtool-ltdl-devel
   become: yes
 
-- name: Copy SAML settings_etsin.json to target VM
-  template: src=templates/settings_etsin.json dest=/home/{{ app_user }}/settings_etsin.json owner={{ app_user }} group=etsin mode=0440
+- name: Create new folder for Etsin SAML settings
+  file:
+    path: /home/{{ app_user }}/etsin
+    state: directory
 
-- name: Copy SAML settings_qvain.json to target VM
-  template: src=templates/settings_qvain.json dest=/home/{{ app_user }}/settings_qvain.json owner={{ app_user }} group=etsin mode=0440
+- name: Create new folder for Qvain SAML settings
+  file:
+    path: /home/{{ app_user }}/qvain
+    state: directory
+
+# Name settings.json because the SAML library expects that filename by default
+- name: Copy SAML settings_etsin.json to target VM in a separate Etsin folder, rename the file settings.json
+  template: src=templates/settings_etsin.json dest=/home/{{ app_user }}/etsin/settings.json owner={{ app_user }} group=etsin mode=0440
+
+# Name settings.json because the SAML library expects that filename by default
+- name: Copy SAML settings_qvain.json to target VM in a separate Qvain folder, rename the file settings.json
+  template: src=templates/settings_qvain.json dest=/home/{{ app_user }}/qvain/settings.json owner={{ app_user }} group=etsin mode=0440
 
 - name: Copy SAML advanced_settings.json to target VM
   template: src=templates/advanced_settings.json dest=/home/{{ app_user }}/advanced_settings.json owner={{ app_user }} group=etsin mode=0440

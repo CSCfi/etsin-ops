@@ -7,7 +7,8 @@ SEARCH_APP_LOG_LEVEL: {{ app_log_level }}
 SEARCH_APP_LOG_PATH: {{ search_app_log_base_path }}/{{ search_app_project_name }}.log
 
 # Variables related to etsin_finder app config
-SERVER_DOMAIN_NAME: {{ server_domain_name }}
+SERVER_ETSIN_DOMAIN_NAME: {{ server_etsin_domain_name }}
+SERVER_QVAIN_DOMAIN_NAME: {{ server_qvain_domain_name }}
 DEBUG: {{ app_debug_mode }}
 SECRET_KEY: {{ app_secret_key }}
 SESSION_COOKIE_SAMESITE: None
