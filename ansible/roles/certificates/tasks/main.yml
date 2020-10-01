@@ -60,4 +60,4 @@
         - "{{ ssl_certificate_name }}"
         - "{{ ssl_key_name }}"
 
-  when: deployment_environment_id in ['test', 'stable', 'demo', 'local_development']
+  when: deployment_environment_id in ['test', 'stable', 'demo']
