@@ -1,0 +1,50 @@
+{
+    "strict": {{ saml.strict | to_json }},
+    "debug": {{ saml.debug | to_json }},
+    "sp": {
+        "entityId": "{{ saml.sp_entity_id_qvain }}",
+        "assertionConsumerService": {
+            "url": "{{ saml.sp_acs_url_qvain }}",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+        },
+        "singleLogoutService": {
+            "url": "{{ saml.sp_sls_url_qvain }}",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "attributeConsumingService": {
+            "serviceName": "Qvain Research Data Metadata Tool",
+            "serviceDescription": "Create metadata for your research dataset",
+            "requestedAttributes": [
+                {
+                    "name": "urn:oid:1.3.6.1.4.1.5923.1.1.1.6",
+                    "isRequired": true,
+                    "nameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+                    "friendlyName": "eduPersonPrincipalName",
+                    "attributeValue": []
+                },
+                {
+                    "name": "urn:oid:2.5.4.3",
+                    "isRequired": true,
+                    "nameFormat": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+                    "friendlyName": "cn",
+                    "attributeValue": []
+                }
+            ]
+        },
+        "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+        "x509cert": "{{ saml.sp_x509_cert }}",
+        "privateKey": "{{ saml.sp_private_key }}"
+    },
+    "idp": {
+        "entityId": "{{ saml.idp_entity_id }}",
+        "singleSignOnService": {
+            "url": "{{ saml.idp_sso_url_qvain }}",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "singleLogoutService": {
+            "url": "{{ saml.idp_sls_url_qvain }}",
+            "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+        },
+        "x509cert": "{{ saml.idp_x509_cert}}"
+    }
+}

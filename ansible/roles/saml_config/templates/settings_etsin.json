@@ -2,13 +2,13 @@
     "strict": {{ saml.strict | to_json }},
     "debug": {{ saml.debug | to_json }},
     "sp": {
-        "entityId": "{{ saml.sp_entity_id }}",
+        "entityId": "{{ saml.sp_entity_id_etsin }}",
         "assertionConsumerService": {
-            "url": "{{ saml.sp_acs_url }}",
+            "url": "{{ saml.sp_acs_url_etsin }}",
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
         },
         "singleLogoutService": {
-            "url": "{{ saml.sp_sls_url }}",
+            "url": "{{ saml.sp_sls_url_etsin }}",
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
         },
         "attributeConsumingService": {
@@ -38,11 +38,11 @@
     "idp": {
         "entityId": "{{ saml.idp_entity_id }}",
         "singleSignOnService": {
-            "url": "{{ saml.idp_sso_url }}",
+            "url": "{{ saml.idp_sso_url_etsin }}",
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
         },
         "singleLogoutService": {
-            "url": "{{ saml.idp_sls_url }}",
+            "url": "{{ saml.idp_sls_url_etsin }}",
             "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
         },
         "x509cert": "{{ saml.idp_x509_cert }}"

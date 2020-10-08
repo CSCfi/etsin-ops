@@ -20,8 +20,8 @@
               location: Espoo
               state: Uusimaa
               country: FI
-              common_name: "{{ server_domain_name }}"
-              dns: "{{ server_domain_name }}"
+              common_name: "{{ server_etsin_domain_name }}"
+              dns: "{{ server_etsin_domain_name }}"
               keyout: "{{ ssl_certificates_path }}/{{ ssl_key_name }}"
               out: "{{ ssl_certificates_path }}/{{ ssl_certificate_name }}"
               days: 365
@@ -32,8 +32,8 @@
               location: Espoo
               state: Uusimaa
               country: FI
-              common_name: "{{ redirect_server_domain_name }}"
-              dns: "{{ redirect_server_domain_name }}"
+              common_name: "{{ redirect_server_etsin_domain_name }}"
+              dns: "{{ redirect_server_etsin_domain_name }}"
               keyout: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }}"
               out: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}"
               days: 365
