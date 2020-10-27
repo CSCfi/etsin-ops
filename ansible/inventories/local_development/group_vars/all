@@ -11,8 +11,8 @@ redirect_ssl_certificate_name: redirect-nginx-selfsigned.crt
 redirect_ssl_certificate_key_name: redirect-nginx-selfsigned.key
 web_app_github_repo_branch: test
 search_app_github_repo_branch: test
-server_etsin_domain_name: 30.30.30.30
-server_qvain_domain_name: 30.30.30.30
+server_etsin_domain_name: etsin-finder.local
+server_qvain_domain_name: qvain.local
 redirect_server_etsin_domain_name: redirect.{{server_etsin_domain_name}}
 
 nginx_es_credentials:
