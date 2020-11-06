@@ -81,6 +81,13 @@ download_api:
   user: etsin
   password: changeme
 
+download_api_v2:
+  enabled: False
+  host: 'ida.fd-test.csc.fi'
+  port: 4431
+  user: Null
+  password: Null
+
 memcached:
   host: localhost
   port: 11211

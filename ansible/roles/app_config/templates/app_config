@@ -63,6 +63,16 @@ DOWNLOAD_API:
   USER: {{ download_api.user }}
   PASSWORD: {{ download_api.password }}
 
+{% if download_api_v2 is defined %}
+# Variables related to Fairdata Download API v2
+DOWNLOAD_API_V2:
+  ENABLED: {{ download_api_v2.enabled }}
+  HOST: {{ download_api_v2.host }}
+  PORT: {{ download_api_v2.port }}
+  USER: {{ download_api_v2.user }}
+  PASSWORD: {{ download_api_v2.password }}
+{% endif %}
+
 # Variables related to Memcached cache
 MEMCACHED:
   HOST: {{ memcached.host }}
