@@ -18,7 +18,7 @@
 - hosts: dataservers
   become: yes
   tasks:
-    - name: Restart rabbimq-consumer
+    - name: Restart rabbitmq-consumer
       service:
         name: rabbitmq-consumer
         state: restarted
