@@ -1,6 +1,6 @@
 # etsin-ops
 
-This repository contains Ansible scripts for setting up Etsin instances.
+This repository contains Ansible scripts for setting up an instance of Etsin-Qvain.
 - https://github.com/cscfi/etsin-finder
 - https://github.com/cscfi/etsin-finder-search
 
