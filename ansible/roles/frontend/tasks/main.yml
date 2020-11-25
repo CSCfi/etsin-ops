@@ -33,6 +33,14 @@
 
   - block:
 
+      - name: Copy .env file to frontend root directory
+        template:
+          src: ".env.j2"
+          dest: "{{ web_app_frontend_path }}/.env"
+          owner: "{{ app_user }}"
+          group: etsin
+          mode: 0755
+
       - name: Install frontend dependencies based on package.json for NON local development environment
         shell: npm install --only=production
         become_user: "{{ app_user }}"
