@@ -30,9 +30,7 @@ SCRIPT
 
 Vagrant.configure("2") do |config|
   config.vm.define "etsin_local_dev_env" do |server|
-    server.vm.box = "faircentos"
-    server.vm.box_url = "http://193.166.25.206/download/faircentos"
-    server.vm.base_mac = "0800273D5CA5"
+    server.vm.box = "centos/7"
     server.vm.network :private_network, ip: "30.30.30.30"
 
     # Basic VM synced folder mount
@@ -41,15 +39,13 @@ Vagrant.configure("2") do |config|
     server.vm.synced_folder "./ansible", "/etsin/ansible", :mount_options => ["dmode=775,fmode=775"]
 
     server.vm.provision "shell", inline: $script
-#    server.vm.provision "shell", run: "always", inline: "sudo systemctl restart rabbitmq-consumer"
+    server.vm.provision "shell", run: "always", inline: "sudo systemctl restart rabbitmq-consumer"
 
     server.vm.provider "virtualbox" do |vbox|
         vbox.name = "etsin_local_development"
         vbox.gui = false
         vbox.memory = 4096
-        vbox.cpus = 4
-        #vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
-        #vbox.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+        vbox.customize ["modifyvm", :id, "--nictype1", "virtio"]
     end
   end
 end
