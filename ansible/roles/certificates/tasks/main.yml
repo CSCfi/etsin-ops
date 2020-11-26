@@ -3,10 +3,6 @@
   file: path={{ ssl_certificates_path }} state=directory
   when: deployment_environment_id in ['local_development', 'staging', 'test', 'stable', 'demo']
 
-- name: Create separate directory for redirect SSL certificates
-  file: path={{ redirect_ssl_certificates_path }} state=directory
-  when: deployment_environment_id in ['local_development', 'staging', 'test', 'stable', 'demo']
-
 - name: Create self-signed SSL certs for local_development, staging
   block:
     - name: Fetch, build and install openssl 1.1
@@ -25,22 +21,9 @@
               keyout: "{{ ssl_certificates_path }}/{{ ssl_key_name }}"
               out: "{{ ssl_certificates_path }}/{{ ssl_certificate_name }}"
               days: 365
-            self_signed_redirect_cert:
-              description: self-signed redirect SSL cert and private key
-              enabled: true
-              organisation: CSC
-              location: Espoo
-              state: Uusimaa
-              country: FI
-              common_name: "{{ redirect_server_etsin_domain_name }}"
-              dns: "{{ redirect_server_etsin_domain_name }}"
-              keyout: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_key_name }}"
-              out: "{{ redirect_ssl_certificates_path }}/{{ redirect_ssl_certificate_name }}"
-              days: 365
         - set_fact:
             certs:
               - "{{ self_signed_cert }}"
-              - "{{ self_signed_redirect_cert }}"
     - name: Generate self-signed certs
       include_tasks: create-cert.yml
       with_items: "{{ certs }}"
@@ -49,7 +32,6 @@
     - set_fact:
         openssl:
         self_signed_cert:
-        self_signed_redirect_cert:
         certs:
   when: deployment_environment_id not in ['production', 'test', 'stable', 'demo']
 
