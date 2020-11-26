@@ -7,15 +7,12 @@ dataserver_1_internal_ip: 127.0.0.1
 deployment_environment_id: local_development
 ssl_certificate_name: nginx-selfsigned.crt
 ssl_key_name: nginx-selfsigned.key
-redirect_ssl_certificate_name: redirect-nginx-selfsigned.crt
-redirect_ssl_certificate_key_name: redirect-nginx-selfsigned.key
 web_app_github_repo_branch: test
 search_app_github_repo_branch: test
 server_etsin_domain_name: etsin-finder.local.fd-test.csc.fi
 server_qvain_domain_name: qvain.local.fd-test.csc.fi
 shared_domain_name: local.fd-test.csc.fi
 shared_domain_name_for_proxy: 30.30.30.30
-redirect_server_etsin_domain_name: redirect.{{server_etsin_domain_name}}
 
 nginx_es_credentials:
   - { username: etsin, password: test-etsin }
@@ -23,7 +20,6 @@ nginx_es_credentials:
 gunicorn_preload: false
 
 ssl_certificates_path: /etc/nginx/ssl_certs
-redirect_ssl_certificates_path: /etc/nginx/redirect_ssl_certs
 
 app_log_level: DEBUG
 app_debug_mode: True
