@@ -12,19 +12,6 @@ etsin_finder_search/
 # ansible retry-file
 ansible/*.retry
 
-ansible/inventories/local_development/group_vars/local_development
-ansible/inventories/test/group_vars/*
-!ansible/inventories/test/group_vars/all
-ansible/inventories/test/host_vars
-ansible/inventories/stable/group_vars/*
-!ansible/inventories/stable/group_vars/all
-ansible/inventories/stable/host_vars
-ansible/inventories/demo/group_vars/*
-!ansible/inventories/demo/group_vars/all
-ansible/inventories/demo/host_vars
-ansible/inventories/staging
-ansible/inventories/production
-
 ansible/files/
 *.pem
 ansible/roles/ansible-elasticsearch/
@@ -39,3 +26,21 @@ __pycache__
 .vscode
 
 faircentos
+
+!.gitignore
+*.key
+*.crt
+
+# Secrets
+# Because how .gitignore rules work, must list specific folders to ignore instead of entire .secrets folder
+# This is because we don't want to ignore the encrypted secrets in .secrets folder
+.secrets/ansible/**/**/host_vars/*
+.secrets/ansible/**/**/group_vars/*
+.secrets/ansible/**/**/public_keys/*
+.secrets/ansible/files/*.html
+!*.secret
+secrets.setup.sh
+
+# never commit random_seed
+.gitsecret.dev/keys/random_seed
+.gitsecret/keys/random_seed
