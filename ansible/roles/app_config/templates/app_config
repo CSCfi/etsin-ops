@@ -86,3 +86,4 @@ FD_REMS:
 
 # Variables related to Fairdata SSO
 SSO_PREFIX: {{ sso_prefix }}
+SSO_COOKIE_DOMAIN: {{ sso_cookie_domain | default('') }}
