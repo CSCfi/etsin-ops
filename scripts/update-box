@@ -1,4 +1,0 @@
-#!/bin/bash
-rm faircentos
-vagrant package --base faircentos --output faircentos
-vagrant box add --name faircentos faircentos --force
