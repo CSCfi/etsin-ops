@@ -72,6 +72,8 @@ DOWNLOAD_API_V2:
   PORT: {{ download_api_v2.port }}
   USER: {{ download_api_v2.user }}
   PASSWORD: {{ download_api_v2.password }}
+  PUBLIC_HOST: {{ download_api_v2.public_host }}
+  PUBLIC_PORT: {{ download_api_v2.public_port }}
 {% endif %}
 
 # Variables related to Memcached cache
