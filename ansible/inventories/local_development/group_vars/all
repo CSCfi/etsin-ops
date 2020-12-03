@@ -84,6 +84,8 @@ download_api_v2:
   port: 4431
   user: Null
   password: Null
+  public_host: 'ida.fd-test.csc.fi'
+  public_port: 4430
 
 memcached:
   host: localhost
