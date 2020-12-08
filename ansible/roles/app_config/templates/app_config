@@ -88,11 +88,9 @@ FD_REMS:
   API_KEY: {{ fd_rems.api_key | default('changeme') }}
 
 # Variables related to Fairdata SSO
-SSO_PREFIX: {{ sso_prefix }}
-SSO_COOKIE_DOMAIN: {{ sso_cookie_domain | default('') }}
-SSO_KEY: {{ sso.sso_key }}
-SSO_AUTHORIZATION: {{ sso_authorization | default(false) }}
-SSO_LOGIN_ETSIN: {{ sso.login.etsin }}
-SSO_LOGIN_QVAIN: {{ sso.login.qvain }}
-SSO_LOGOUT_ETSIN: {{ sso.logout.etsin }}
-SSO_LOGOUT_QVAIN: {{ sso.logout.qvain }}
+SSO:
+  ENABLED: {{ sso.enabled | default(false) }}
+  PREFIX: {{ sso.prefix }}
+  KEY: {{ sso.key }}
+  COOKIE_DOMAIN: {{ sso.cookie_domain | default('') }}
+  HOST: {{ sso.host }}
