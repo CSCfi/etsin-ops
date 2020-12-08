@@ -13,8 +13,6 @@ etsin_finder_search/
 ansible/*.retry
 
 ansible/inventories/local_development/group_vars/local_development
-ansible/inventories/local_development/group_vars/local_development_sso
-ansible/inventories/local_development/group_vars/local_development_saml
 ansible/inventories/test/group_vars/*
 !ansible/inventories/test/group_vars/all
 ansible/inventories/test/host_vars
@@ -39,5 +37,3 @@ __pycache__
 
 # Visual studio code stuff
 .vscode
-
-faircentos
