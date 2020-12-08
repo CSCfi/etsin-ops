@@ -9,7 +9,6 @@ SEARCH_APP_LOG_PATH: {{ search_app_log_base_path }}/{{ search_app_project_name }
 # Variables related to etsin_finder app config
 SERVER_ETSIN_DOMAIN_NAME: {{ server_etsin_domain_name }}
 SERVER_QVAIN_DOMAIN_NAME: {{ server_qvain_domain_name }}
-SHARED_DOMAIN_NAME: {{ shared_domain_name }}
 SHARED_DOMAIN_NAME_FOR_PROXY: {{ shared_domain_name_for_proxy }}
 DEBUG: {{ app_debug_mode }}
 SECRET_KEY: {{ app_secret_key }}
@@ -17,6 +16,7 @@ SESSION_COOKIE_SAMESITE: None
 SESSION_COOKIE_SECURE: True
 SESSION_COOKIE_HTTPONLY: True
 SESSION_COOKIE_NAME: "etsin_session"
+SESSION_COOKIE_DOMAIN: {{ shared_domain_name }}
 PERMANENT_SESSION_LIFETIME: 1800
 SESSION_REFRESH_EACH_REQUEST: True
 
