@@ -91,7 +91,7 @@ FD_REMS:
 SSO_PREFIX: {{ sso_prefix }}
 SSO_COOKIE_DOMAIN: {{ sso_cookie_domain | default('') }}
 SSO_KEY: {{ sso.sso_key }}
-SSO_AUTHORIZATION: {{ sso_authorization }}
+SSO_AUTHORIZATION: {{ sso_authorization | default(false) }}
 SSO_LOGIN_ETSIN: {{ sso.login.etsin }}
 SSO_LOGIN_QVAIN: {{ sso.login.qvain }}
 SSO_LOGOUT_ETSIN: {{ sso.logout.etsin }}
