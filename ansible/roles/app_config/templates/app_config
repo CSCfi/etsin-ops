@@ -90,10 +90,8 @@ FD_REMS:
 # Variables related to Fairdata SSO
 SSO_COOKIE_DOMAIN: {{ sso_cookie_domain | default('') }}
 
-# Variables related to Fairdata SSO
 SSO:
   ENABLED: {{ sso.enabled | default(false) }}
   PREFIX: {{ sso.prefix }}
   KEY: {{ sso.key }}
-  COOKIE_DOMAIN: {{ sso.cookie_domain | default('') }}
   HOST: {{ sso.host }}
