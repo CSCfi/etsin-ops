@@ -5,8 +5,6 @@ webserver_1_internal_ip: 127.0.0.1
 dataserver_1_internal_ip: 127.0.0.1
 
 deployment_environment_id: local_development
-ssl_certificate_name: fd-test.csc.fi.crt.pem
-ssl_key_name: fd-test.csc.fi.key.pem
 web_app_github_repo_branch: test
 search_app_github_repo_branch: test
 server_etsin_domain_name: etsin-local.fd-test.csc.fi
