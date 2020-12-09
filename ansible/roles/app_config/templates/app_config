@@ -95,3 +95,9 @@ SSO:
   PREFIX: {{ sso.prefix }}
   KEY: {{ sso.key }}
   HOST: {{ sso.host }}
+
+{% if flags | default(false) %}
+# Runtime feature flags
+FLAGS:
+  {{ flags | to_nice_yaml | indent(2) }}
+{% endif %}
