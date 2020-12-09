@@ -33,7 +33,7 @@
         openssl:
         self_signed_cert:
         certs:
-  when: deployment_environment_id not in ['production', 'test', 'stable', 'demo']
+  when: deployment_environment_id not in ['production', 'test', 'stable', 'demo', 'local_development']
 
 - block:
     - name: Copy CA-signed primary certificate and private key
@@ -42,4 +42,4 @@
         - "{{ ssl_certificate_name }}"
         - "{{ ssl_key_name }}"
 
-  when: deployment_environment_id in ['test', 'stable', 'demo']
+  when: deployment_environment_id in ['test', 'stable', 'demo', 'local_development']
