@@ -77,7 +77,6 @@ download_api:
   password: changeme
 
 download_api_v2:
-  enabled: False
   host: 'ida.fd-test.csc.fi'
   port: 4431
   user: Null
@@ -110,3 +109,9 @@ fd_rems:
 matomo:
   host: matomo.csc.local
   port: 80
+
+flags:
+  DOWNLOAD_API_V2.BACKEND: true
+  DOWNLOAD_API_V2.FRONTEND: false
+  METAX_API_V2.BACKEND: true
+  METAX_API_V2.FRONTEND: false
