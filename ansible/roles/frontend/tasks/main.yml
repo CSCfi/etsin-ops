@@ -49,7 +49,7 @@
           chdir: "{{ web_app_frontend_path }}"
 
       - name: Run frontend build for pouta test environments
-        shell: npm run build -- --node-env test'
+        shell: npm run build -- --node-env test
         become_user: "{{ app_user }}"
         args:
           executable: /bin/bash
