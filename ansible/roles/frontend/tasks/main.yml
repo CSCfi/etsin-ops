@@ -62,7 +62,7 @@
         args:
           executable: /bin/bash
           chdir: "{{ web_app_frontend_path }}"
-        when: deployment_environment_id == 'staging'
+        when: deployment_environment_id == 'demo'
 
       - name: Run frontend build for production environment
         shell: npm run build -- --env MATOMO

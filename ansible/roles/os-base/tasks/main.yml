@@ -37,7 +37,7 @@
           - tree
     - set_fact:
         yum_packages: "{{ yum_packages + yum_dev_packages }}"
-      when: deployment_environment_id not in ['staging', 'production']
+      when: deployment_environment_id not in ['demo', 'production']
     - shell: yum -y --setopt=tsflags=nodocs install {{ yum_packages | join(' ') }}
       args:
         warn: False

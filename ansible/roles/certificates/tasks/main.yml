@@ -1,9 +1,9 @@
 ---
 - name: Create directory for SSL certificates
   file: path={{ ssl_certificates_path }} state=directory
-  when: deployment_environment_id in ['local_development', 'staging', 'test', 'stable', 'demo']
+  when: deployment_environment_id in ['local_development', 'test', 'stable', 'demo']
 
-- name: Create self-signed SSL certs for local_development, staging
+- name: Create self-signed SSL certs for local_development
   block:
     - name: Fetch, build and install openssl 1.1
       block:
@@ -11,7 +11,7 @@
         - set_fact:
             self_signed_cert:
               description: self-signed SSL cert and private key
-              enabled: deployment_environment_id in ['local_development', 'staging']
+              enabled: deployment_environment_id in ['local_development']
               organisation: CSC
               location: Espoo
               state: Uusimaa
