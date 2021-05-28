@@ -26,7 +26,7 @@
   - name: Install web app python test package requirements
     pip: requirements={{ web_app_base_path }}/test_requirements.txt virtualenv={{ python_virtualenv_path }}
     become_user: "{{ app_user }}"
-    when: deployment_environment_id not in ['staging', 'production']
+    when: deployment_environment_id not in ['demo', 'production']
 
   - include_role: name=gunicorn
 
@@ -36,7 +36,7 @@
         shell: yum --setopt=tsflags=nodocs -y install centos-release-scl-rh
       - name: Install nodejs 12.x
         shell: yum --enablerepo=centos-sclo-rh-testing -y install rh-nodejs12
-    when: deployment_environment_id in ['local_development', 'test', 'stable', 'staging', 'demo', 'production']
+    when: deployment_environment_id in ['local_development', 'test', 'stable', 'demo', 'production']
 
   - name: Link npm to usr/local/bin
     block:
@@ -54,7 +54,7 @@
             src: /opt/rh/rh-nodejs12/root/bin/node
             dest: /usr/local/bin/nodejs
             state: link
-    when: deployment_environment_id in ['test', 'stable', 'staging', 'demo', 'production']
+    when: deployment_environment_id in ['test', 'stable', 'demo', 'production']
 
   - name: Link npm to usr/bin for local_development
     block:

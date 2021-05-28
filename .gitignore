@@ -22,7 +22,6 @@ ansible/inventories/stable/host_vars
 ansible/inventories/demo/group_vars/*
 !ansible/inventories/demo/group_vars/all
 ansible/inventories/demo/host_vars
-ansible/inventories/staging
 ansible/inventories/production
 
 ansible/files/

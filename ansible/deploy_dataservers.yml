@@ -5,4 +5,4 @@
   roles:
     - { role: update_packages, when: "deployment_environment_id not in ['production']" }
     - deploy_dataservers
-    - { role: reboot, when: "deployment_environment_id not in ['local_development', 'staging', 'production']" }
+    - { role: reboot, when: "deployment_environment_id not in ['local_development', 'demo', 'production']" }

@@ -46,7 +46,7 @@
 
       - include_role: name=app_config
 
-    when: deployment_environment_id in ['local_development', 'staging', 'production']
+    when: deployment_environment_id in ['local_development', 'demo', 'production']
 
   - block:
 
@@ -62,7 +62,7 @@
         debug:
           var: shell_result.stdout_lines
 
-    when: deployment_environment_id in ['staging', 'production']
+    when: deployment_environment_id in ['demo', 'production']
 
   - name: Install latest pip version
     pip: name=pip state=latest virtualenv={{ python_virtualenv_path }}
@@ -75,7 +75,7 @@
   - name: Install web app python test package requirements
     pip: requirements={{ web_app_base_path }}/test_requirements.txt virtualenv={{ python_virtualenv_path }}
     become_user: "{{ app_user }}"
-    when: deployment_environment_id not in ['staging', 'production']
+    when: deployment_environment_id not in ['demo', 'production']
 
   - include_role: name=frontend
 
