@@ -70,8 +70,7 @@ DOWNLOAD_API_V2:
   ENABLED: {{ download_api_v2.enabled }}
   HOST: {{ download_api_v2.host }}
   PORT: {{ download_api_v2.port }}
-  USER: {{ download_api_v2.user }}
-  PASSWORD: {{ download_api_v2.password }}
+  AUTH_TOKEN: {{ download_api_v2.auth_token }}
   PUBLIC_HOST: {{ download_api_v2.public_host }}
   PUBLIC_PORT: {{ download_api_v2.public_port }}
 {% endif %}
