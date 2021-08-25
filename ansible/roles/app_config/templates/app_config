@@ -93,6 +93,10 @@ SSO:
   KEY: {{ sso.key }}
   HOST: {{ sso.host }}
 
+{% if matomo is defined %}
+MATOMO_URL: {{ matomo.url | default() }}
+{% endif %}
+
 {% if flags | default(false) %}
 # Runtime feature flags
 FLAGS:

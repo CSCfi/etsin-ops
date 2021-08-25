@@ -107,8 +107,7 @@ fd_rems:
   api_key: changeme
 
 matomo:
-  host: matomo.csc.local
-  port: 80
+  url: ~
 
 flags:
   DOWNLOAD_API_V2.BACKEND: true
