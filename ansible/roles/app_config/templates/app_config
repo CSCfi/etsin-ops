@@ -57,14 +57,6 @@ METAX_QVAIN_API:
   PASSWORD: {{ metax_qvain_api.password }}
   VERIFY_SSL: {{ metax_qvain_api.verify_ssl }}
 
-# Variables related to Fairdata Download API
-DOWNLOAD_API:
-  HOST: {{ download_api.host }}
-  PORT: {{ download_api.port }}
-  USER: {{ download_api.user }}
-  PASSWORD: {{ download_api.password }}
-
-{% if download_api_v2 is defined %}
 # Variables related to Fairdata Download API v2
 DOWNLOAD_API_V2:
   ENABLED: {{ download_api_v2.enabled }}
@@ -73,7 +65,6 @@ DOWNLOAD_API_V2:
   AUTH_TOKEN: {{ download_api_v2.auth_token }}
   PUBLIC_HOST: {{ download_api_v2.public_host }}
   PUBLIC_PORT: {{ download_api_v2.public_port }}
-{% endif %}
 
 # Variables related to Memcached cache
 MEMCACHED:
